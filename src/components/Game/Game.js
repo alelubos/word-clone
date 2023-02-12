@@ -27,31 +27,29 @@ function Game() {
   const [guesses, setGuesses] = React.useState(initialList);
   const [numberOfGuesses, setNumberOfGuesses] = React.useState(0);
   const [guessed, setGuessed] = React.useState(false);
-  const [gameStatus, setGameStatus] = React.useState('ON');
+  const [gameOver, setGameOver] = React.useState(false);
 
   const addGuess = (newGuess) => {
-    if (numberOfGuesses >= NUM_OF_GUESSES_ALLOWED) {
-      return;
-    }
     const newList = [...guesses];
     newList[numberOfGuesses].word = newGuess;
     setGuesses(newList);
     if (newGuess === answer) {
       setGuessed(true);
-      setGameStatus('OVER');
+      setGameOver(true);
     }
-    setNumberOfGuesses(numberOfGuesses + 1);
-    if (numberOfGuesses === NUM_OF_GUESSES_ALLOWED) {
-      setGameStatus('OVER');
+    const nextNumberOfGuesses = numberOfGuesses + 1;
+    if (nextNumberOfGuesses === NUM_OF_GUESSES_ALLOWED) {
+      setGameOver(true);
     }
+    setNumberOfGuesses(nextNumberOfGuesses);
   };
 
   return (
     <>
       <GuessesList guessesList={guesses} answer={answer} />
-      <GuessInputForm addGuess={addGuess} disabled={gameStatus === 'OVER'} />
+      <GuessInputForm addGuess={addGuess} disabled={gameOver} />
       {guessed && <WinBanner attempts={numberOfGuesses} />}
-      {gameStatus === 'OVER' && !guessed && <LoseBanner answer={answer} />}
+      {!guessed && gameOver && <LoseBanner answer={answer} />}
     </>
   );
 }
