@@ -13,7 +13,7 @@ import LoseBanner from '../LoseBanner/LoseBanner';
 const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
-// Set initial List -objects with word and id properties-
+// Set initial List -objects with word (string with proper # of spaces) and id properties-
 const initialList = [];
 let emptySpacesWord = '';
 for (let i = 0; i < WORD_LENGTH; i++) {
@@ -38,10 +38,10 @@ function Game() {
       setGameOver(true);
     }
     const nextNumberOfGuesses = numberOfGuesses + 1;
+    setNumberOfGuesses(nextNumberOfGuesses);
     if (nextNumberOfGuesses === NUM_OF_GUESSES_ALLOWED) {
       setGameOver(true);
     }
-    setNumberOfGuesses(nextNumberOfGuesses);
   };
 
   return (
