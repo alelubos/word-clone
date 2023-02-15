@@ -2,6 +2,11 @@ import React from 'react';
 
 function GuessInputForm({ addGuess, disabled }) {
   const [newGuess, setNewGuess] = React.useState('');
+  const inputRef = React.useRef();
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,6 +22,7 @@ function GuessInputForm({ addGuess, disabled }) {
     <form className='guess-input-wrapper' onSubmit={handleSubmit}>
       <label htmlFor='guess-input'>Enter guess:</label>
       <input
+        ref={inputRef}
         id='guess-input'
         type='text'
         value={newGuess}

@@ -29,7 +29,7 @@ function Game() {
   const [guessed, setGuessed] = React.useState(false);
   const [gameOver, setGameOver] = React.useState(false);
 
-  const addGuess = (newGuess) => {
+  const addGuessToGuesses = (newGuess) => {
     const newList = [...guesses];
     newList[numberOfGuesses].word = newGuess;
     setGuesses(newList);
@@ -47,7 +47,7 @@ function Game() {
   return (
     <>
       <GuessesList guessesList={guesses} answer={answer} />
-      <GuessInputForm addGuess={addGuess} disabled={gameOver} />
+      <GuessInputForm addGuess={addGuessToGuesses} disabled={gameOver} />
       {guessed && <WinBanner attempts={numberOfGuesses} />}
       {!guessed && gameOver && <LoseBanner answer={answer} />}
     </>
